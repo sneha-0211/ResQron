@@ -163,9 +163,9 @@ Task|F1 Score|Inference (ms)
 ## Contact
  *Team ResQron*
 
-📧 Email: rgour6350@gmail.com
+📧 Email: snehasharma022005@gmail.com
 
-🌐 GitHub: @sharma-0311
+🌐 GitHub: @sneha-0211
 
 ## Final Note
 
