@@ -1,0 +1,7 @@
+path: .
+train: images/train
+val: images/val
+
+# number of classes and their names
+nc: 4
+names: [person, vehicle, tent, debris]
