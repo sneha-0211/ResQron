@@ -1,0 +1,6 @@
+paho-mqtt
+numpy
+airsim
+msgpack-rpc-python
+opencv-python
+Pillow
