@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
+    "framer-motion": "^10.18.0",
+    "mapbox-gl": "^3.14.0",
+    "mqtt": "^5.14.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-map-gl": "^8.0.4",
+    "recharts": "^2.15.4",
+    "socket.io-client": "^4.8.1"
+  }
+}
