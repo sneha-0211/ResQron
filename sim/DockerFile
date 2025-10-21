@@ -1,0 +1,11 @@
+FROM python:3.10-slim
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire application code into the container
+COPY . .
+
+# To run in sim-only mode, you would override this command.
+CMD ["python", "-m", "sim.engine"]
