@@ -1,0 +1,851 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-dark: #0a0e1a;
+  --panel-bg: #151c33;
+  --border-color: #2b3a5a;
+  --text-primary: #e0e7ff;
+  --text-secondary: #90a0c7;
+  --accent-blue: #00bfff;
+  --accent-green: #00ff7f;
+  --accent-orange: #ffaa00;
+  --accent-red: #ff4d4d;
+  --accent-purple: #9b59b6;
+  --accent-teal: #00ced1;
+  --gradient-main: linear-gradient(90deg, #00bfff, #00ff7f);
+  --gradient-alert: linear-gradient(90deg, #ffaa00, #ff4d4d);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-size: 16px;
+}
+
+#root {
+  height: 100%;
+}
+
+/* === MAIN DASHBOARD LAYOUT === */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  height: 100vh;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.05) 0%, transparent 40%),
+              radial-gradient(circle at bottom right, rgba(0, 255, 127, 0.05) 0%, transparent 40%),
+              var(--bg-dark);
+}
+
+.main-content {
+  background-color: var(--panel-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* === LEFT & RIGHT SIDEBARS === */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+/* === HEADER (TOP LEFT) === */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 0.5rem;
+}
+
+.header .logo-icon {
+  width: 52px;
+  height: 52px;
+  color: var(--accent-teal);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px rgba(0, 191, 255, 0.4);
+}
+
+/* === LEFT SIDEBAR COMPONENTS === */
+.control-panel {
+  background-color: var(--panel-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.risk-assessment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.risk-assessment span {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 30px;
+}
+.toggle-switch input { display: none; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #4b5a7a;
+  transition: .4s;
+  border-radius: 30px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px; bottom: 4px;
+  background-color: #ffffff;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+input:checked + .slider { background-color: var(--accent-green); }
+input:checked + .slider:before { transform: translateX(25px); }
+
+/* Circular Buttons */
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.circular-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 191, 255, 0.08);
+  border: 3px solid var(--border-color);
+  color: var(--text-secondary);
+  height: 95px;
+  width: 95px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.circular-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  pointer-events: none;
+}
+
+.circular-button:hover {
+  background-color: var(--accent-blue);
+  color: white;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.6), 0 0 25px rgba(0, 191, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.circular-button svg {
+  color: var(--accent-blue);
+  transition: color 0.3s ease;
+}
+
+.circular-button:hover svg {
+  color: white;
+}
+
+.circular-button.emergency {
+  background-color: rgba(255, 77, 77, 0.1);
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.circular-button.emergency::before {
+  border-color: rgba(255, 77, 77, 0.4);
+}
+
+.circular-button.emergency svg {
+  color: var(--accent-red);
+}
+
+.circular-button.emergency:hover {
+  background-color: var(--accent-red);
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.6), 0 0 25px rgba(255, 77, 77, 0.4);
+}
+
+/* RTL Button Styles */
+.rtl-button-wrapper {
+  grid-column: 1 / 3;
+  grid-row: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rtl-button {
+  background-color: rgba(255, 170, 0, 0.1);
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
+  height: 75px;
+  width: 75px;
+}
+
+.rtl-button::before {
+  border-color: rgba(255, 170, 0, 0.4);
+}
+
+.rtl-button svg {
+  color: var(--accent-orange);
+}
+
+.rtl-button:hover {
+  background-color: var(--accent-orange);
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 170, 0, 0.6), 0 0 25px rgba(255, 170, 0, 0.4);
+}
+
+.rtl-button:hover svg {
+  color: white;
+}
+
+
+/* === RIGHT SIDEBAR COMPONENTS (PANELS) === */
+.info-panel {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.panel-header {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--accent-teal);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.status-item span:first-child {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.status-item span:last-child {
+  font-weight: 600;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #3b4e72;
+  border-radius: 6px;
+  height: 10px;
+  margin-top: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.progress-bar {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--gradient-main);
+  transition: width 0.5s ease-out;
+}
+
+.status-green { color: var(--accent-green); font-weight: 700; }
+.status-orange { color: var(--accent-orange); font-weight: 700; }
+.status-red { color: var(--accent-red); font-weight: 700; }
+
+.mission-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.mission-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.mission-list li svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.2;
+}
+
+/* === NOTIFICATION POPUP STYLES === */
+.notification-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  transform: none;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.notification-item {
+  padding: 14px 24px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 350px;
+  text-align: center;
+}
+
+.notification-item.success {
+  background-color: rgba(0, 255, 127, 0.2);
+  border-left: 4px solid var(--accent-green);
+}
+
+.notification-item.emergency {
+  background-color: rgba(255, 77, 77, 0.2);
+  border-left: 4px solid var(--accent-red);
+}
+
+
+/* === Tooltip Styles (FIXED) === */
+.tooltip-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* This is the default style, now for the RIGHT-SIDE buttons */
+.tooltip {
+  position: absolute;
+  left: 110%; 
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--accent-blue);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+/* This targets the tooltips for the LEFT-SIDE buttons (1st and 3rd) and positions them ABOVE */
+.actions-grid .tooltip-wrapper:nth-child(odd) .tooltip {
+  top: -15px; 
+  left: 50%;
+  transform: translate(-50%, -100%); 
+  z-index: 2000;
+}
+
+/* Show tooltip on hover */
+.tooltip-wrapper:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2000;
+}
+
+/* Ensure tooltips appear above map */
+.tooltip-wrapper:hover {
+  z-index: 2000;
+}
+
+/* === DRONE FLEET PANEL IN LEFT SIDEBAR === */
+.drone-fleet-panel {
+  background-color: var(--panel-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-top: 1rem;
+}
+
+.drone-fleet-panel .panel-header {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-teal);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.drone-fleet-panel .drone-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.drone-fleet-panel .drone-status-item {
+  background-color: rgba(43, 58, 90, 0.4);
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1px solid rgba(43, 58, 90, 0.6);
+  transition: all 0.3s ease;
+}
+
+.drone-fleet-panel .drone-status-item:hover {
+  background-color: rgba(43, 58, 90, 0.6);
+}
+
+.drone-fleet-panel .drone-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.drone-fleet-panel .drone-name {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.drone-fleet-panel .drone-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.drone-fleet-panel .drone-status.active {
+  color: var(--accent-green);
+  background-color: rgba(0, 255, 127, 0.1);
+}
+
+.drone-fleet-panel .drone-status.maintenance {
+  color: var(--accent-red);
+  background-color: rgba(255, 77, 77, 0.1);
+}
+
+.drone-fleet-panel .drone-status-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.drone-fleet-panel .drone-status-details span {
+  font-weight: 500;
+}
+
+.drone-fleet-panel .drone-mission {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* === GOOGLE MAPS COMPONENT STYLES === */
+.google-map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Map search box overlay */
+.map-search-container {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2500;
+}
+
+.map-search-input {
+  width: 420px;
+  max-width: 78vw;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(10,14,26,0.85), rgba(21,28,51,0.92));
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.map-search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.map-search-input:hover {
+  border-color: rgba(0, 191, 255, 0.4);
+}
+
+.map-search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.25), 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 640px) {
+  .map-search-input {
+    width: 88vw;
+    padding: 10px 14px;
+    border-radius: 10px;
+  }
+}
+
+
+/* Drone Info Window Styles */
+.drone-info-window {
+  background-color: var(--panel-bg);
+  color: var(--text-primary);
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.drone-info-window h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.drone-info-window p {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.drone-info-window strong {
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+/* Map Loading State */
+.map-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--panel-bg);
+  color: var(--text-secondary);
+  font-size: 18px;
+  border-radius: 12px;
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.map-loading p {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.fallback-button {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.fallback-button:hover {
+  background-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+/* Static Map Fallback */
+.static-map-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.static-map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.static-map-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(21, 28, 51, 0.9);
+  color: var(--text-primary);
+  padding: 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+}
+
+.static-map-overlay p {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-teal);
+}
+
+.retry-button {
+  background-color: var(--accent-green);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+
+/* Location Error */
+.location-error {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background-color: rgba(255, 77, 77, 0.9);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.location-error p {
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Swarm Drone Animation Effects */
+@keyframes swarmPulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+@keyframes swarmRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes jetFly {
+  0%, 100% { 
+    transform: translateX(0px) translateY(0px) rotate(0deg);
+  }
+  25% { 
+    transform: translateX(5px) translateY(-3px) rotate(5deg);
+  }
+  50% { 
+    transform: translateX(0px) translateY(-5px) rotate(0deg);
+  }
+  75% { 
+    transform: translateX(-5px) translateY(-3px) rotate(-5deg);
+  }
+}
+
+@keyframes swarmFloat {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-10px);
+  }
+}
+
+/* Swarm coordination lines */
+.swarm-coordination-line {
+  stroke: #00ff7f;
+  stroke-width: 2;
+  stroke-dasharray: 5,5;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/* Swarm Status Indicator */
+.swarm-status-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, rgba(0, 191, 255, 0.9), rgba(0, 255, 127, 0.9));
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 191, 255, 0.3);
+  z-index: 1000;
+  animation: swarmPulse 2s ease-in-out infinite;
+}
+
+.swarm-status-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.swarm-status-icon {
+  font-size: 28px;
+  animation: jetFly 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(0, 191, 255, 0.6));
+}
+
+.swarm-status-text h4 {
+  margin: 0 0 4px 0;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.swarm-status-text p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Responsive adjustments for map */
+@media (max-width: 1200px) {
+  .map-controls-overlay {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .map-control-panel {
+    padding: 12px;
+    min-width: 180px;
+  }
+  
+  .map-control-panel h4 {
+    font-size: 12px;
+  }
+  
+  .drone-status-item {
+    padding: 6px;
+  }
+  
+  .drone-status-details {
+    font-size: 10px;
+  }
+}
